@@ -1,4 +1,5 @@
 import fs from "fs";
+import fs_promise from "fs/promises"
 
 export type Tools = {
   id: string;
@@ -7,7 +8,6 @@ export type Tools = {
   params: unknown;
   function: (input: unknown) => unknown;
 };
-
 
 function readCurrentDir() {
   const data = fs.readdirSync(process.cwd());
@@ -36,6 +36,13 @@ function writeFile(file: string, data: any) {
   };
 }
 
+async function deleteFile(file: unknown) {
+  await fs_promise.rm(`./${file.input}`, { recursive: true, force: true })
+  return {
+    message: `write file: ${file.input} successfull`,
+  };
+}
+
 export const TOOLS: Tools[] = [
   {
     id: "1",
@@ -57,6 +64,16 @@ export const TOOLS: Tools[] = [
   },
   {
     id: "3",
+    name: "delete_file_or_folder",
+    function: (file) => deleteFile(file as string),
+    params: {
+      input: "string",
+    },
+    description:
+      "this is the tool used for deleting a file or folder, which required a file_name or folder_name as an input",
+  },
+  {
+    id: "4",
     name: "write_file",
     function: (params) =>
       writeFile(params.file as string, params.data),
