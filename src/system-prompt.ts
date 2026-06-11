@@ -1,7 +1,10 @@
+import { TOOLS } from "./tools";
+
 export const system_prompt = `
   You are an expert coding agent.
 
   You have access to <AVAILABLE_TOOLS>.
+  <AVAILABLE_TOOLS> ${JSON.stringify(TOOLS)} <AVAILABLE_TOOLS>
 
   Rules:
   - USE TOOLS HEAVELY, IF QUESTIONS ARE RELATED TO THEM, EVEN FOCUS ON SMALLER DETAILS

@@ -6,8 +6,12 @@ export const loginCommand = new Command("login")
     .option('-p, --provider <provider>', 'Name of the provider (gemini, claude etc)', '')
     .option('-a, --api_key <apiKey>', 'Your api key', '')
     .action((options) => {
-        const data: Record<string, string> = {}
-        data[options.provider] = options.api_key
+        const data = JSON.parse(fs.readFileSync("./src/api.json").toString());
+        
+        const updatedData: Record<string, string> = data;
+        updatedData[options.provider] = options.api_key
 
-        fs.writeFileSync("api.json", JSON.stringify(data))
+        fs.writeFileSync("./src/api.json", JSON.stringify(updatedData))
+
+        console.log("provider with api_key set");
     })
