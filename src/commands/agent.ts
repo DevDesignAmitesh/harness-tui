@@ -73,12 +73,13 @@ export const agentCommand = new Command("agent")
             content: JSON.stringify(getAllMessages()) 
           } 
         ],
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${apikey}`
-        },
-      })
+        }, {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${apikey}`
+          },
+        }
+      )
   
       let parsedResponse;
       
